@@ -33,6 +33,11 @@ app.get("/", function (request, response) {
 app.post("/auth", function (request, response) {
   var username = request.body.username;
   var password = request.body.password;
+  if (typeof username != "string" || typeof password != "string"){
+    response.send("Invalid parameters!");
+    response.end();
+    return;
+  }
   if (username && password) {
     connection.query(
       "SELECT * FROM accounts WHERE username = ? AND password = ?",
